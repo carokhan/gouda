@@ -106,7 +106,7 @@ gears = [
     Gear(50, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3571"),
     Gear(52, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5459"),
 
-    # VEXpro 1/2" hex steel gears
+    # VEXpro or West Coast Products 1/2" hex steel gears
     Gear(18, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5460"),
     Gear(20, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5461"),
     Gear(22, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5463"),
@@ -194,7 +194,4 @@ gears = [
     Gear(64, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0293"),
     Gear(66, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0171"),
     Gear(70, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0172"),
-
 ]
-
-
