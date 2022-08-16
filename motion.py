@@ -1,17 +1,13 @@
 class Gear:
-    def __init__(self, teeth: int, dp: int, tolerance: float, shaft: str, height: float, material: str, vendor: str, sku: str) -> None:
+    def __init__(self, teeth: int, dp: int, tolerance: float, height: float) -> None:
         self.teeth = teeth
         self.dp = dp
         self.tolerance = tolerance
         self.diameter = (teeth / dp) + tolerance
-        self.shaft = shaft
         self.height = height
-        self.material = material
-        self.vendor = vendor
-        self.sku = sku
 
     def __repr__(self):
-        return "Gear(teeth=" + str(self.teeth) + ", dp=" + str(self.dp) + ", tolerance=" + str(self.tolerance) + ", shaft='" + self.shaft + "', material='" + self.material + "', vendor='" + self.vendor + "', sku='" + self.sku + "')"
+        return "Gear(teeth=" + str(self.teeth) + ", dp=" + str(self.dp) + ", tolerance=" + str(self.tolerance) + ", height=" + str(self.height) + ")"
 
 # tight fit pinions?
 class Pinion:
@@ -36,6 +32,18 @@ class Pinion:
             cnstrct += ", diameter=" + str(self.diameter)
         cnstrct += ")"
         return cnstrct
+
+class Product(Gear):
+    def __init__(self, teeth: int, dp: int, tolerance: float, shaft: str, height: float, material: str, vendor: str, sku: str) -> None:
+        self.shaft = shaft
+        self.vendor = vendor 
+        self.material = material 
+        self.sku = sku
+        super().__init__(teeth, dp, tolerance, shaft, height, material, vendor, sku)
+
+    def toGear(self):
+        return Gear(self.teeth, self.dp, self.tolerance, self.height)
+    
 
 bag, cim, falcon500, motor550, motor775, neo = "BAG", "CIM", "Falcon 500", "550", "775", "Neo"
 aluminum, steel = "aluminum", "steel"

@@ -1,4 +1,17 @@
 import motion 
+import itertools
+from pprint import pprint
+
+def product(l):
+    i = 1
+    for e in l:
+        i *= e
+    return i
+
+def calcReduction(pinionGears):
+    driving = pinionGears[::2]
+    driven = pinionGears[1::2]
+    return product([gear.teeth for gear in driven]) / product([gear.teeth for gear in driving])
 
 reduction = int(input("Desired reduction? "))
 maxsize = float(input("\nMax gear diameter? "))
@@ -33,5 +46,11 @@ stageCount = 1
 while stages > max(gearTeeth) / min(gearTeeth):
     stages /= max(gearTeeth) / min(gearTeeth)
     stageCount += 1
-    
+
 print(stageCount)
+reductions = [list(reduction) for reduction in list(itertools.combinations(gears, (stageCount * 2 - 1)))]
+pinionGears = [[pinion] + reduction for reduction in reductions for pinion in pinions]
+# print(pinionGears)
+print(len(pinionGears))
+pprint(pinionGears[0])
+print(calcReduction(pinionGears[0]))
