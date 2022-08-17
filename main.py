@@ -500,11 +500,12 @@ while True:
             "\nEnter the number for the reduction you would like more details on, or type EXIT to exit: "
         )
     try:
-        for reduction in reductionScore[highScores[int(choice)]]["reductions"]:
-            products = [gear.toProduct() for gear in reduction[1::]]
-            print("\n")
-            pprint([reduction[0]] + products)
-            print("\n")
+        for ratio in reductionScore[highScores[int(choice)]]["reductions"]:
+            for reduction in ratio:
+                products = [gear.toProduct() for gear in reduction[1:]]
+                print("\n")
+                pprint([reduction[0]] + products)
+                print("\n")
     except:
         if gumInstalled:
             subprocess.run(["gum", "style", "--foreground=160", "Exiting..."])
