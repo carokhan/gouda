@@ -7,17 +7,43 @@ class Gear:
         self.height = height
 
     def __eq__(self, compare):
-        if self.teeth == compare.teeth and self.dp == compare.dp and self.tolerance == compare.tolerance and self.height == compare.height:
+        if (
+            self.teeth == compare.teeth
+            and self.dp == compare.dp
+            and self.tolerance == compare.tolerance
+            and self.height == compare.height
+        ):
             return True
         else:
             return False
 
     def __repr__(self):
-        return "Gear(teeth=" + str(self.teeth) + ", dp=" + str(self.dp) + ", tolerance=" + str(self.tolerance) + ", height=" + str(self.height) + ")"
+        return (
+            "Gear(teeth="
+            + str(self.teeth)
+            + ", dp="
+            + str(self.dp)
+            + ", tolerance="
+            + str(self.tolerance)
+            + ", height="
+            + str(self.height)
+            + ")"
+        )
+
 
 # tight fit pinions?
 class Pinion:
-    def __init__(self, teeth: int, dp: int, tolerance: float, motor: str, material: str, vendor: str, sku: str, diameter=None) -> None:
+    def __init__(
+        self,
+        teeth: int,
+        dp: int,
+        tolerance: float,
+        motor: str,
+        material: str,
+        vendor: str,
+        sku: str,
+        diameter=None,
+    ) -> None:
         self.teeth = teeth
         self.dp = dp
         self.tolerance = tolerance
@@ -33,31 +59,93 @@ class Pinion:
         self.sku = sku
 
     def __repr__(self):
-        cnstrct = "Pinion(teeth=" + str(self.teeth) + ", dp=" + str(self.dp) + ", tolerance=" + str(self.tolerance) + ", motor='" + self.motor + "', material='" + self.material + "', vendor='" + self.vendor + "', sku='" + self.sku + "'"
+        cnstrct = (
+            "Pinion(teeth="
+            + str(self.teeth)
+            + ", dp="
+            + str(self.dp)
+            + ", tolerance="
+            + str(self.tolerance)
+            + ", motor='"
+            + self.motor
+            + "', material='"
+            + self.material
+            + "', vendor='"
+            + self.vendor
+            + "', sku='"
+            + self.sku
+            + "'"
+        )
         if self.diameter is not None:
             cnstrct += ", diameter=" + str(self.diameter)
         cnstrct += ")"
         return cnstrct
 
+
 class Product(Gear):
-    def __init__(self, teeth: int, dp: int, tolerance: float, shaft: str, height: float, material: str, vendor: str, sku: str) -> None:
+    def __init__(
+        self,
+        teeth: int,
+        dp: int,
+        tolerance: float,
+        shaft: str,
+        height: float,
+        material: str,
+        vendor: str,
+        sku: str,
+    ) -> None:
         self.shaft = shaft
-        self.vendor = vendor 
-        self.material = material 
+        self.vendor = vendor
+        self.material = material
         self.sku = sku
         super().__init__(teeth, dp, tolerance, height)
 
     def __repr__(self):
-        return "Product(teeth=" + str(self.teeth) + ", dp=" + str(self.dp) + ", tolerance=" + str(self.tolerance) + ", shaft=" + self.shaft + ", height=" + str(self.height) + ", material=" + self.material + ", vendor=" + self.vendor + ", sku=" + self.sku + ")"
+        return (
+            "Product(teeth="
+            + str(self.teeth)
+            + ", dp="
+            + str(self.dp)
+            + ", tolerance="
+            + str(self.tolerance)
+            + ", shaft="
+            + self.shaft
+            + ", height="
+            + str(self.height)
+            + ", material="
+            + self.material
+            + ", vendor="
+            + self.vendor
+            + ", sku="
+            + self.sku
+            + ")"
+        )
 
     def toGear(self):
         return Gear(self.teeth, self.dp, self.tolerance, self.height)
-    
 
-bag, cim, falcon500, motor550, motor775, neo = "BAG", "CIM", "Falcon 500", "550", "775", "Neo"
+
+bag, cim, falcon500, motor550, motor775, neo = (
+    "BAG",
+    "CIM",
+    "Falcon 500",
+    "550",
+    "775",
+    "Neo",
+)
 aluminum, steel = "aluminum", "steel"
-rev, vexpro, vexprowcp, wcp =  "REVRobotics", "VEXpro", "VEXpro or West Coast Products", "West Coast Products"
-hex375, hex5, hex5round, thunder = '3/8" Hex', '1/2" Hex', '1/2" Hex Rounded', '1/2" Thunderhex'
+rev, vexpro, vexprowcp, wcp = (
+    "REVRobotics",
+    "VEXpro",
+    "VEXpro or West Coast Products",
+    "West Coast Products",
+)
+hex375, hex5, hex5round, thunder = (
+    '3/8" Hex',
+    '1/2" Hex',
+    '1/2" Hex Rounded',
+    '1/2" Thunderhex',
+)
 
 pinions = [
     # VEXpro or West Coast Products Falcon 500 pinions
@@ -68,7 +156,6 @@ pinions = [
     Pinion(12, 20, 0.003, falcon500, steel, vexprowcp, "217-6919"),
     Pinion(13, 20, 0.003, falcon500, steel, vexprowcp, "217-6921", diameter=14 / 20),
     Pinion(14, 20, 0.003, falcon500, steel, vexprowcp, "217-6922"),
-
     # VEXpro or West Coast Products CIM pinions
     Pinion(9, 20, 0.003, cim, steel, vexprowcp, "217-6335", diameter=10 / 20),
     Pinion(10, 20, 0.003, cim, steel, vexprowcp, "217-6334", diameter=12 / 20),
@@ -77,19 +164,15 @@ pinions = [
     Pinion(12, 20, 0.003, cim, aluminum, vexprowcp, "217-2614"),
     Pinion(13, 20, 0.003, cim, steel, vexprowcp, "217-3416", diameter=14 / 20),
     Pinion(14, 20, 0.003, cim, steel, vexprowcp, "217-3414"),
-
     # VEXpro or West Coast Products BAG pinions
     Pinion(6, 20, 0.003, bag, steel, vexprowcp, "217-6339", diameter=8 / 20),
     Pinion(8, 20, 0.003, bag, steel, vexprowcp, "217-6368", diameter=10 / 20),
-
     # VEXpro or West Coast Products 550 pinions
     Pinion(6, 20, 0.003, motor550, steel, vexprowcp, "217-6333", diameter=8 / 20),
     Pinion(8, 20, 0.003, motor550, steel, vexprowcp, "217-6367", diameter=10 / 20),
-
     # VEXpro or West Coast Products 775 pinions
     Pinion(6, 20, 0.003, motor775, steel, vexprowcp, "217-6285", diameter=8 / 20),
     Pinion(8, 20, 0.003, motor775, steel, vexprowcp, "217-6362", diameter=10 / 20),
-
     # REVRobotics Neo pinions
     Pinion(10, 20, 0.003, neo, steel, rev, "REV-21-1998", diameter=0.6),
     Pinion(11, 20, 0.003, neo, steel, rev, "REV-21-1999", diameter=0.6),
@@ -122,7 +205,6 @@ products = [
     Product(46, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5458"),
     Product(50, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3571"),
     Product(52, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5459"),
-
     # VEXpro or West Coast Products 1/2" hex steel gears
     Product(18, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5460"),
     Product(20, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5461"),
@@ -131,7 +213,6 @@ products = [
     Product(26, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5466"),
     Product(28, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5468"),
     Product(30, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5469"),
-
     # VEXpro or West Coast Products 1/2" hex aluminum gears
     Product(18, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3209"),
     Product(20, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2702"),
@@ -164,7 +245,6 @@ products = [
     Product(80, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5481"),
     Product(82, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5482"),
     Product(84, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3577"),
-
     # REVRobotics 1/2" hex gears
     Product(18, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1920"),
     Product(20, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1921"),
@@ -181,13 +261,10 @@ products = [
     Product(64, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1943"),
     Product(68, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1945"),
     Product(80, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1951"),
-
     # REVRobotics 1/2" rounded hex gears
     Product(16, 20, 0.003, hex5round, 0.5, steel, rev, "REV-21-2196"),
-
     # West Coast Products 3/8" hex gears
     Product(48, 20, 0.003, hex375, 0.498, aluminum, wcp, "WCP-0114"),
-
     # West Coast Products 1/2" hex gears
     Product(16, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0112"),
     Product(16, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0170"),
