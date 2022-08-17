@@ -1,3 +1,57 @@
+import math
+
+
+def product(l):
+    i = 1
+    for e in l:
+        i *= e
+    return i
+
+
+# https://docs.python.org/3/library/itertools.html#itertools.product
+def combos(*args, desired, pinions, threshold=0.5, repeat=1):
+    # product('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
+    # product(range(2), repeat=3) --> 000 001 010 011 100 101 110 111
+    pools = [tuple(pool) for pool in args] * repeat
+    result = [[]]
+    for pool in pools:
+        result = [x + [y] for x in result for y in pool]
+    for prod in result:
+        for pinion in pinions:
+            achieved = calcRatio([pinion] + list(prod))
+            similarity = (abs(achieved - desired)) / ((achieved + desired) / 2)
+            if similarity < threshold:
+                yield [pinion] + list(prod)
+
+
+def calcRatio(pinionGears):
+    driving = pinionGears[::2]
+    driven = pinionGears[1::2]
+    return product([gear.teeth for gear in driven]) / product(
+        [gear.teeth for gear in driving]
+    )
+
+
+def calcSize(config, motor):
+    total = 0
+    for gear in config[1:]:
+        total += math.pi * gear.diameter / 2 * gear.height
+    match motor:
+        case "BAG":
+            total += math.pi * 1.590551 / 2 * 3.326772
+        case "CIM":
+            total += math.pi * 2.52 / 2 * 5.913386
+        case "Falcon 500":
+            total += math.pi * 2.3622 / 2 * 4.559055
+        case "550":
+            total += math.pi * 1.377953 / 2 * 2.204724
+        case "775":
+            total += math.pi * 1.765 / 2 * 3.454567
+        case "Neo":
+            total += math.pi * 2.322142 / 2 * 3.671260
+    return total
+
+
 class Gear:
     def __init__(self, teeth: int, dp: int, tolerance: float, height: float) -> None:
         self.teeth = teeth
@@ -30,6 +84,17 @@ class Gear:
             + ")"
         )
 
+    def toProduct(self):
+        return [
+            product
+            for product in products
+            if self.teeth == product.teeth
+            and self.dp == product.dp
+            and self.tolerance == product.tolerance
+            and self.diameter == product.diameter
+            and self.height == product.height
+        ]
+
 
 # tight fit pinions?
 class Pinion:
@@ -59,27 +124,21 @@ class Pinion:
         self.sku = sku
 
     def __repr__(self):
-        cnstrct = (
-            "Pinion(teeth="
-            + str(self.teeth)
-            + ", dp="
+        return (
+            str(self.teeth)
+            + "-Teeth "
+            + self.material.capitalize()
+            + " "
+            + self.motor.capitalize()
+            + " Pinion, "
             + str(self.dp)
-            + ", tolerance="
-            + str(self.tolerance)
-            + ", motor='"
-            + self.motor
-            + "', material='"
-            + self.material
-            + "', vendor='"
+            + " DP, from "
             + self.vendor
-            + "', sku='"
+            + " ("
             + self.sku
-            + "'"
+            + ")"
         )
-        if self.diameter is not None:
-            cnstrct += ", diameter=" + str(self.diameter)
-        cnstrct += ")"
-        return cnstrct
+
 
 
 class Product(Gear):
@@ -102,21 +161,16 @@ class Product(Gear):
 
     def __repr__(self):
         return (
-            "Product(teeth="
-            + str(self.teeth)
-            + ", dp="
+            str(self.teeth)
+            + "-Teeth "
+            + self.material.capitalize()
+            + " Gear, "
             + str(self.dp)
-            + ", tolerance="
-            + str(self.tolerance)
-            + ", shaft="
+            + " DP, "
             + self.shaft
-            + ", height="
-            + str(self.height)
-            + ", material="
-            + self.material
-            + ", vendor="
+            + " Bore, from "
             + self.vendor
-            + ", sku="
+            + " ("
             + self.sku
             + ")"
         )
