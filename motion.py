@@ -6,6 +6,12 @@ class Gear:
         self.diameter = (teeth / dp) + tolerance
         self.height = height
 
+    def __eq__(self, compare):
+        if self.teeth == compare.teeth and self.dp == compare.dp and self.tolerance == compare.tolerance and self.height == compare.height:
+            return True
+        else:
+            return False
+
     def __repr__(self):
         return "Gear(teeth=" + str(self.teeth) + ", dp=" + str(self.dp) + ", tolerance=" + str(self.tolerance) + ", height=" + str(self.height) + ")"
 
@@ -39,7 +45,10 @@ class Product(Gear):
         self.vendor = vendor 
         self.material = material 
         self.sku = sku
-        super().__init__(teeth, dp, tolerance, shaft, height, material, vendor, sku)
+        super().__init__(teeth, dp, tolerance, height)
+
+    def __repr__(self):
+        return "Product(teeth=" + str(self.teeth) + ", dp=" + str(self.dp) + ", tolerance=" + str(self.tolerance) + ", shaft=" + self.shaft + ", height=" + str(self.height) + ", material=" + self.material + ", vendor=" + self.vendor + ", sku=" + self.sku + ")"
 
     def toGear(self):
         return Gear(self.teeth, self.dp, self.tolerance, self.height)
@@ -90,116 +99,123 @@ pinions = [
 ]
 
 # thunderhex?
-gears = [
+products = [
     # VEXpro or West Coast Products 3/8" hex gears
-    Gear(14, 20, 0.003, hex375, 0.496, steel, vexprowcp, "217-3100"),
-    Gear(14, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-2699"),
-    Gear(16, 20, 0.003, hex375, 0.496, steel, vexprowcp, "217-5451"),
-    Gear(16, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5450"),
-    Gear(18, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3208"),
-    Gear(20, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-2701"),
-    Gear(22, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5452"),
-    Gear(24, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-2703"),
-    Gear(26, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5453"),
-    Gear(28, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5454"),
-    Gear(30, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3210"),
-    Gear(32, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5455"),
-    Gear(34, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3211"),
-    Gear(36, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3213"),
-    Gear(38, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5456"),
-    Gear(40, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-2707"),
-    Gear(42, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3215"),
-    Gear(44, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5457"),
-    Gear(46, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5458"),
-    Gear(50, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3571"),
-    Gear(52, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5459"),
+    Product(14, 20, 0.003, hex375, 0.496, steel, vexprowcp, "217-3100"),
+    Product(14, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-2699"),
+    Product(16, 20, 0.003, hex375, 0.496, steel, vexprowcp, "217-5451"),
+    Product(16, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5450"),
+    Product(18, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3208"),
+    Product(20, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-2701"),
+    Product(22, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5452"),
+    Product(24, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-2703"),
+    Product(26, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5453"),
+    Product(28, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5454"),
+    Product(30, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3210"),
+    Product(32, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5455"),
+    Product(34, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3211"),
+    Product(36, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3213"),
+    Product(38, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5456"),
+    Product(40, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-2707"),
+    Product(42, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3215"),
+    Product(44, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5457"),
+    Product(46, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5458"),
+    Product(50, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-3571"),
+    Product(52, 20, 0.003, hex375, 0.498, aluminum, vexprowcp, "217-5459"),
 
     # VEXpro or West Coast Products 1/2" hex steel gears
-    Gear(18, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5460"),
-    Gear(20, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5461"),
-    Gear(22, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5463"),
-    Gear(24, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5464"),
-    Gear(26, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5466"),
-    Gear(28, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5468"),
-    Gear(30, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5469"),
+    Product(18, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5460"),
+    Product(20, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5461"),
+    Product(22, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5463"),
+    Product(24, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5464"),
+    Product(26, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5466"),
+    Product(28, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5468"),
+    Product(30, 20, 0.003, hex5, 0.498, steel, vexprowcp, "217-5469"),
 
     # VEXpro or West Coast Products 1/2" hex aluminum gears
-    Gear(18, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3209"),
-    Gear(20, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2702"),
-    Gear(22, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5462"),
-    Gear(24, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2704"),
-    Gear(26, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5465"),
-    Gear(28, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5467"),
-    Gear(30, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2705"),
-    Gear(32, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5470"),
-    Gear(34, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2706"),
-    Gear(36, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3214"),
-    Gear(38, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5471"),
-    Gear(40, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2708"),
-    Gear(42, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3216"),
-    Gear(44, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2710"),
-    Gear(46, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5472"),
-    Gear(50, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3572"),
-    Gear(52, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5473"),
-    Gear(54, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3573"),
-    Gear(56, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5474"),
-    Gear(58, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5475"),
-    Gear(60, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3574"),
-    Gear(62, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5476"),
-    Gear(64, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3575"),
-    Gear(68, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5477"),
-    Gear(72, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3576"),
-    Gear(74, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5478"),
-    Gear(76, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5479"),
-    Gear(78, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5480"),
-    Gear(80, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5481"),
-    Gear(82, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5482"),
-    Gear(84, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3577"),
+    Product(18, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3209"),
+    Product(20, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2702"),
+    Product(22, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5462"),
+    Product(24, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2704"),
+    Product(26, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5465"),
+    Product(28, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5467"),
+    Product(30, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2705"),
+    Product(32, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5470"),
+    Product(34, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2706"),
+    Product(36, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3214"),
+    Product(38, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5471"),
+    Product(40, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2708"),
+    Product(42, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3216"),
+    Product(44, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-2710"),
+    Product(46, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5472"),
+    Product(50, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3572"),
+    Product(52, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5473"),
+    Product(54, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3573"),
+    Product(56, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5474"),
+    Product(58, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5475"),
+    Product(60, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3574"),
+    Product(62, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5476"),
+    Product(64, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3575"),
+    Product(68, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5477"),
+    Product(72, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3576"),
+    Product(74, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5478"),
+    Product(76, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5479"),
+    Product(78, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5480"),
+    Product(80, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5481"),
+    Product(82, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-5482"),
+    Product(84, 20, 0.003, hex5, 0.498, aluminum, vexprowcp, "217-3577"),
 
     # REVRobotics 1/2" hex gears
-    Gear(18, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1920"),
-    Gear(20, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1921"),
-    Gear(24, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1923"),
-    Gear(28, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1925"),
-    Gear(30, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1926"),
-    Gear(32, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1927"),
-    Gear(34, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1928"),
-    Gear(36, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1929"),
-    Gear(40, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1931"),
-    Gear(50, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1936"),
-    Gear(52, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1937"),
-    Gear(60, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1941"),
-    Gear(64, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1943"),
-    Gear(68, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1945"),
-    Gear(80, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1951"),
+    Product(18, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1920"),
+    Product(20, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1921"),
+    Product(24, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1923"),
+    Product(28, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1925"),
+    Product(30, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1926"),
+    Product(32, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1927"),
+    Product(34, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1928"),
+    Product(36, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1929"),
+    Product(40, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1931"),
+    Product(50, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1936"),
+    Product(52, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1937"),
+    Product(60, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1941"),
+    Product(64, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1943"),
+    Product(68, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1945"),
+    Product(80, 20, 0.003, hex5, 0.5, steel, rev, "REV-21-1951"),
 
     # REVRobotics 1/2" rounded hex gears
-    Gear(16, 20, 0.003, hex5round, 0.5, steel, rev, "REV-21-2196"),
+    Product(16, 20, 0.003, hex5round, 0.5, steel, rev, "REV-21-2196"),
 
     # West Coast Products 3/8" hex gears
-    Gear(48, 20, 0.003, hex375, 0.498, aluminum, wcp, "WCP-0114"),
+    Product(48, 20, 0.003, hex375, 0.498, aluminum, wcp, "WCP-0114"),
 
     # West Coast Products 1/2" hex gears
-    Gear(16, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0112"),
-    Gear(16, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0170"),
-    Gear(32, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0173"),
-    Gear(34, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0174"),
-    Gear(36, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0175"),
-    Gear(38, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0176"),
-    Gear(40, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0177"),
-    Gear(42, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0178"),
-    Gear(44, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0179"),
-    Gear(46, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0180"),
-    Gear(48, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0188"),
-    Gear(48, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0181"),
-    Gear(50, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0182"),
-    Gear(52, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0183"),
-    Gear(54, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0184"),
-    Gear(56, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0185"),
-    Gear(58, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0186"),
-    Gear(60, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0187"),
-    Gear(62, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0292"),
-    Gear(64, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0293"),
-    Gear(66, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0171"),
-    Gear(70, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0172"),
+    Product(16, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0112"),
+    Product(16, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0170"),
+    Product(32, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0173"),
+    Product(34, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0174"),
+    Product(36, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0175"),
+    Product(38, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0176"),
+    Product(40, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0177"),
+    Product(42, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0178"),
+    Product(44, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0179"),
+    Product(46, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0180"),
+    Product(48, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0188"),
+    Product(48, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0181"),
+    Product(50, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0182"),
+    Product(52, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0183"),
+    Product(54, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0184"),
+    Product(56, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0185"),
+    Product(58, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0186"),
+    Product(60, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0187"),
+    Product(62, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0292"),
+    Product(64, 20, 0.003, hex5, 0.498, steel, wcp, "WCP-0293"),
+    Product(66, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0171"),
+    Product(70, 20, 0.003, hex5, 0.498, aluminum, wcp, "WCP-0172"),
 ]
+
+sameGears = [product.toGear() for product in products]
+
+gears = []
+for gear in sameGears:
+    if gear not in gears:
+        gears.append(gear)
