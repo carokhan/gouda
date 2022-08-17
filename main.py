@@ -106,6 +106,3 @@ for config in configs:
             configReductions[reduction].append(config)
     except:
         configReductions[reduction] = [config]
-print(max(configReductions.keys()))
-pprint(configReductions[max(configReductions.keys())])
-print(len(configReductions[max(configReductions.keys())]))
