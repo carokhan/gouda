@@ -140,7 +140,6 @@ class Pinion:
         )
 
 
-
 class Product(Gear):
     def __init__(
         self,

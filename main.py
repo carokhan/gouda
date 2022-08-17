@@ -18,22 +18,74 @@ os.environ["BORDER_BACKGROUND"] = "17"
 gumInstalled = True
 
 try:
-    subprocess.run(["gum", "style", "--background=17", "--border=rounded", "--align=center", "--width=53", "--height=1", "--bold", 'Welcome to'])
+    subprocess.run(
+        [
+            "gum",
+            "style",
+            "--background=17",
+            "--border=rounded",
+            "--align=center",
+            "--width=53",
+            "--height=1",
+            "--bold",
+            "Welcome to",
+        ]
+    )
     gouda = pyfiglet.Figlet(font="starwars")
     gouda = gouda.renderText("GOUDA")
     print("\033[1;33m" + gouda[:-1])
-    subprocess.run(["gum", "style", "--background=17", "--border=rounded", "--align=center", "--width=53", "--height=1", "--bold", 'The Gearbox Optimization Utility for Design Automation'])
+    subprocess.run(
+        [
+            "gum",
+            "style",
+            "--background=17",
+            "--border=rounded",
+            "--align=center",
+            "--width=53",
+            "--height=1",
+            "--bold",
+            "The Gearbox Optimization Utility for Design Automation",
+        ]
+    )
 
 except FileNotFoundError:
     gumInstalled = False
     print("Welcome to")
 
 if gumInstalled:
-    desired = int(subprocess.run(["gum", "input", "--prompt=Enter the desired gear ratio: ", "--placeholder=ie, if you wanted 90:1, type 90 "], stdout=subprocess.PIPE, text=True).stdout.strip().split(" ")[-1])
+    desired = int(
+        subprocess.run(
+            [
+                "gum",
+                "input",
+                "--prompt=Enter the desired gear ratio: ",
+                "--placeholder=ie, if you wanted 90:1, type 90 ",
+            ],
+            stdout=subprocess.PIPE,
+            text=True,
+        )
+        .stdout.strip()
+        .split(" ")[-1]
+    )
     subprocess.run(["gum", "style", "Gear ratio of " + str(desired) + ":1 selected!\n"])
 
-    maxsize = int(subprocess.run(["gum", "input", "--prompt=Enter the max gear diameter: ", "--placeholder=(in inches)"], stdout=subprocess.PIPE, text=True).stdout.strip().split(" ")[-1])
-    subprocess.run(["gum", "style", "Set maximum gear diameter of: " + str(maxsize) + " inches"])
+    maxsize = int(
+        subprocess.run(
+            [
+                "gum",
+                "input",
+                "--prompt=Enter the max gear diameter: ",
+                "--placeholder=(in inches)",
+            ],
+            stdout=subprocess.PIPE,
+            text=True,
+        )
+        .stdout.strip()
+        .split(" ")[-1]
+    )
+    subprocess.run(
+        ["gum", "style", "Set maximum gear diameter of: " + str(maxsize) + " inches"]
+    )
 
     subprocess.run(["gum", "style", "\nChoose a motor:"])
     motor = subprocess.run(
@@ -48,18 +100,30 @@ if gumInstalled:
         ["gum", "choose", "Yes", "No"], stdout=subprocess.PIPE, text=True
     ).stdout.strip()
     subprocess.run(["gum", "style", sizeWeight + "\n"])
-    
-    results = int(subprocess.run(["gum", "input", "--prompt=How many results would you like? "], stdout=subprocess.PIPE, text=True).stdout.strip().split(" ")[-1])
+
+    results = int(
+        subprocess.run(
+            ["gum", "input", "--prompt=How many results would you like? "],
+            stdout=subprocess.PIPE,
+            text=True,
+        )
+        .stdout.strip()
+        .split(" ")[-1]
+    )
     subprocess.run(["gum", "style", str(results) + " results selected!"])
-    
-    subprocess.run(["gum", "style", "\nIncrease performance by only using the smallest pinion?"])
+
+    subprocess.run(
+        ["gum", "style", "\nIncrease performance by only using the smallest pinion?"]
+    )
     pinionOptimize = subprocess.run(
         ["gum", "choose", "Yes", "No"], stdout=subprocess.PIPE, text=True
     ).stdout.strip()
     subprocess.run(["gum", "style", pinionOptimize])
 
-    confirm = subprocess.run(["gum", "confirm", "Confirm input?"], stdout=subprocess.PIPE, text=True)
-    
+    confirm = subprocess.run(
+        ["gum", "confirm", "Confirm input?"], stdout=subprocess.PIPE, text=True
+    )
+
     if confirm.returncode != 0:
         subprocess.run(["gum", "style", "--foreground=160", "Exiting..."])
         exit(0)
@@ -103,7 +167,7 @@ gears = [gear for gear in motion.gears if gear.diameter - gear.tolerance <= maxs
 gearTeeth = [gear.teeth for gear in gears]
 
 if int(results) >= 1:
-    results = int(results)   
+    results = int(results)
 
 match pinionOptimize:
     case "Yes":
@@ -272,7 +336,9 @@ match pinionOptimize:
         pinions = [pinion for pinion in motion.pinions if motor == pinion.motor]
     case "_":
         if gumInstalled:
-            subprocess.run(["gum", "style", "--foreground=160", "Invalid input, exiting..."])
+            subprocess.run(
+                ["gum", "style", "--foreground=160", "Invalid input, exiting..."]
+            )
         else:
             print("Invalid input, exiting...")
         exit(0)
@@ -354,15 +420,22 @@ else:
 if type(results) == type(1086):
     for i in range(results):
         if gumInstalled:
-            subprocess.run(["gum", "style", "--foreground=255", "#"
-                + str(i)
-                + ", "
-                + str(round(highScores[i], 4))
-                + ", size: "
-                + str(round(reductionScore[highScores[i]]["size"], 4))
-                + " cubic inches, ratio: "
-                + str(round(reductionScore[highScores[i]]["ratio"], 4))
-                + ":1"])
+            subprocess.run(
+                [
+                    "gum",
+                    "style",
+                    "--foreground=255",
+                    "#"
+                    + str(i)
+                    + ", "
+                    + str(round(highScores[i], 4))
+                    + ", size: "
+                    + str(round(reductionScore[highScores[i]]["size"], 4))
+                    + " cubic inches, ratio: "
+                    + str(round(reductionScore[highScores[i]]["ratio"], 4))
+                    + ":1",
+                ]
+            )
         else:
             print(
                 "#"
@@ -381,15 +454,22 @@ else:
         if score < results * 100:
             break
         if gumInstalled:
-            subprocess.run(["gum", "style", "--foreground=255", "#"
-                + str(i)
-                + ", "
-                + str(round(score, 4))
-                + ", size: "
-                + str(round(reductionScore[score]["size"], 4))
-                + " cubic inches, ratio: "
-                + str(round(reductionScore[score]["ratio"], 4))
-                + ":1"])
+            subprocess.run(
+                [
+                    "gum",
+                    "style",
+                    "--foreground=255",
+                    "#"
+                    + str(i)
+                    + ", "
+                    + str(round(score, 4))
+                    + ", size: "
+                    + str(round(reductionScore[score]["size"], 4))
+                    + " cubic inches, ratio: "
+                    + str(round(reductionScore[score]["ratio"], 4))
+                    + ":1",
+                ]
+            )
         else:
             print(
                 "#"
@@ -406,7 +486,15 @@ else:
 
 while True:
     if gumInstalled:
-        choice = subprocess.run(["gum", "input", "--prompt=Enter a number for more, or type EXIT: "], stdout=subprocess.PIPE, text=True).stdout.strip().split(" ")[-1]
+        choice = (
+            subprocess.run(
+                ["gum", "input", "--prompt=Enter a number for more, or type EXIT: "],
+                stdout=subprocess.PIPE,
+                text=True,
+            )
+            .stdout.strip()
+            .split(" ")[-1]
+        )
     else:
         choice = input(
             "\nEnter the number for the reduction you would like more details on, or type EXIT to exit: "
