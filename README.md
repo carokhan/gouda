@@ -8,4 +8,5 @@ next:
 1. Optimize 2d sketch
 2. Optimize 3d model
 
+(click on the image below to view a recording)
 [![asciicast](https://asciinema.org/a/2vDqZreZpAQRpaxd5HzaYbjXV.png)](https://asciinema.org/a/2vDqZreZpAQRpaxd5HzaYbjXV)
