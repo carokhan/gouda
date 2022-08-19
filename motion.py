@@ -1,6 +1,5 @@
 import math
 
-
 def product(l):
     i = 1
     for e in l:

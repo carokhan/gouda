@@ -101,7 +101,7 @@ if gumInstalled:
     ).stdout.strip()
     subprocess.run(["gum", "style", sizeWeight + "\n"])
 
-    results = int(
+    results = float(
         subprocess.run(
             ["gum", "input", "--prompt=How many results would you like? "],
             stdout=subprocess.PIPE,
